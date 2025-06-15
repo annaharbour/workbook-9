@@ -1,8 +1,9 @@
 package com.NorthWindTradersSpringBoot;
 
-import com.NorthWindTradersSpringBoot.dao.SimpleProductDao;
+import com.NorthWindTradersSpringBoot.dao.ProductDao;
 import com.NorthWindTradersSpringBoot.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,8 @@ import java.util.Scanner;
 @Component
 public class NorthwindTradersApp implements CommandLineRunner {
     @Autowired
-    private SimpleProductDao simpleProductDao;
+    @Qualifier("JdbcProductDao")
+    private ProductDao productDao;
 
     @Override
     public void run(String... args) throws Exception {
@@ -32,7 +34,7 @@ public class NorthwindTradersApp implements CommandLineRunner {
 
                 switch (choice) {
                     case "1":
-                        List<Product> products = simpleProductDao.getAll();
+                        List<Product> products = productDao.getAll();
                         System.out.println("\nProducts:");
                         for (Product product : products) {
                             System.out.println(product);
@@ -49,7 +51,7 @@ public class NorthwindTradersApp implements CommandLineRunner {
                         newProduct.setPrice(price);
 
                         try {
-                            simpleProductDao.add(newProduct);
+                            productDao.add(newProduct);
                             System.out.println("Product added successfully.");
                         } catch (Exception e) {
                             System.out.println("Failed to add product");
@@ -78,7 +80,7 @@ public class NorthwindTradersApp implements CommandLineRunner {
                         Product updatedProduct = new Product(productId, updatedName, updatedPrice);
 
                         try {
-                            simpleProductDao.update(productId, updatedProduct);
+                            productDao.update(productId, updatedProduct);
                             System.out.println("Product updated successfully.");
                         } catch (Exception e) {
                             System.out.println("Product failed to update.");
@@ -88,29 +90,20 @@ public class NorthwindTradersApp implements CommandLineRunner {
                     case "4":
                         System.out.println("Enter the id of the product you want to delete");
                         int productToDeleteId = scanner.nextInt();
-                        scanner.nextLine(); // Consume leftover newline
+                        scanner.nextLine();
+//
                         try {
-                            Product productToDelete = simpleProductDao.search(productToDeleteId);
-                            System.out.println("Is this the product you'd like to delete?");
-                            System.out.println(productToDelete);
-                            System.out.println("Type 'delete' to confirm");
-                            if (scanner.nextLine().equalsIgnoreCase("delete")) {
-                                try {
-                                    simpleProductDao.delete(productToDeleteId);
-                                    System.out.println("Product deleted successfully.");
-                                } catch (Exception e) {
-                                    System.out.println("Deletion of product failed");
-                                }
-                            }
+                            productDao.delete(productToDeleteId);
+                            System.out.println("Product deleted successfully.");
                         } catch (Exception e) {
-                            System.out.println("Product not found");
+                            System.out.println("Deletion of product failed");
                         }
                         break;
 
                     case "5":
                         System.out.println("Enter the name of the product you want to search for: ");
                         String searchName = scanner.nextLine();
-                        simpleProductDao.search(searchName).forEach(System.out::println);
+                        productDao.search(searchName).forEach(System.out::println);
                         break;
 
                     case "0":

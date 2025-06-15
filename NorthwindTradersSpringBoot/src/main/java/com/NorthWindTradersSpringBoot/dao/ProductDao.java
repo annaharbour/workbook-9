@@ -1,6 +1,7 @@
 package com.NorthWindTradersSpringBoot.dao;
 
 import com.NorthWindTradersSpringBoot.models.Product;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
