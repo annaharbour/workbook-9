@@ -3,13 +3,14 @@ package com.pluralsight.NorthwindTradersApi.dao;
 import com.pluralsight.NorthwindTradersApi.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class JdbcCategoryDao implements CategoryDao {
     private DataSource dataSource;
 

@@ -7,4 +7,6 @@ import java.util.List;
 public interface ProductDao {
     List<Product> getAll();
     Product getById(int id);
+    List<Product> getByPrice(double price);
+    List<Product> getByCategoryId(int categoryId);
 }
