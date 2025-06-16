@@ -43,12 +43,18 @@ public class Product {
         this.price = price;
     }
 
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public String toString() {
         return productId + ". " + name + "\t$" + String.format(String.valueOf(price), .2f);
     }
 
-    public int getCategoryId() {
-        return  categoryId;
-    }
 }
