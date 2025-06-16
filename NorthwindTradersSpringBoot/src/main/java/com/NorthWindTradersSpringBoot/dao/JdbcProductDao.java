@@ -3,6 +3,7 @@ package com.NorthWindTradersSpringBoot.dao;
 import com.NorthWindTradersSpringBoot.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
@@ -10,7 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component("JdbcProductDao")
+@Repository("JdbcProductDao")
 public class JdbcProductDao implements ProductDao {
 
     private DataSource dataSource;
