@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +38,39 @@ public class JdbcCategoryDao implements CategoryDao {
     }
 
     @Override
-    public Category getCategoryById(int id) {
-// code to get one customer here
-        return new Category();
+    public Category getCategory(int id) {
+        String sql = "SELECT * FROM categories WHERE CategoryID = ?;";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Category category = new Category();
+                category.setCategoryId(resultSet.getInt("CategoryID"));
+                category.setCategoryName(resultSet.getString("CategoryName"));
+                return category;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public Category getCategory(String name) {
+        String sql = "SELECT * FROM categories WHERE CategoryName = ?;";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Category category = new Category();
+                category.setCategoryId(resultSet.getInt("CategoryID"));
+                category.setCategoryName(resultSet.getString("CategoryName"));
+                return category;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 }

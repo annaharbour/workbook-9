@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -33,15 +32,15 @@ public class CategoriesController {
         return categories;
     }
 
-    // respond to http://localhost:8080/categories/{id}
-    @GetMapping("/{id}")
+    // respond to http://localhost:8080/categories/id/{id}
+    @GetMapping("/id/{id}")
     public Category getCategory(@PathVariable int id) {
-        return new Category(1, "Coffee");
+        return dao.getCategory(id);
     }
 
     // respond to http://localhost:8080/categories/{name}
     @GetMapping("/{name}")
     public Category getCategory(@PathVariable String name) {
-        return new Category(1, "Coffee");
+        return dao.getCategory(name);
     }
 }

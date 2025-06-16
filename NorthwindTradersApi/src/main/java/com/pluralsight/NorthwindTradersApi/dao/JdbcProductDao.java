@@ -1,4 +1,4 @@
 package com.pluralsight.NorthwindTradersApi.dao;
 
-public class ProductsDao {
+public class JdbcProductDao {
 }
