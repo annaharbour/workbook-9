@@ -55,4 +55,11 @@ public class CategoriesController {
     public void updateCategory(@PathVariable int id, @RequestBody Category category) {
     }
 
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCategory(@PathVariable int id){
+        dao.delete(id);
+    }
+
 }

@@ -56,4 +56,10 @@ public class ProductsController {
     public void createProduct(@PathVariable int id, @RequestBody Product product) {
         dao.update(id, product);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable int id){
+        dao.delete(id);
+    }
 }

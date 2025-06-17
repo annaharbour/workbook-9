@@ -143,4 +143,22 @@ public class JdbcProductDao implements ProductDao {
             System.out.println(e);
         }
     }
+
+    @Override
+    public void delete(int id) {
+        String sql = "DELETE FROM products WHERE ProductID = ?;";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Successfully deleted product with ID: " + id);
+            } else {
+                System.out.println("No product found with ID " + id);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
 }
