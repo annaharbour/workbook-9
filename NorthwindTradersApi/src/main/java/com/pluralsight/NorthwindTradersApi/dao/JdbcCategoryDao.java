@@ -2,7 +2,6 @@ package com.pluralsight.NorthwindTradersApi.dao;
 
 import com.pluralsight.NorthwindTradersApi.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -73,5 +72,20 @@ public class JdbcCategoryDao implements CategoryDao {
             System.out.println(e);
         }
         return null;
+    }
+
+    @Override
+    public Category insert(Category category) {
+        String sql = "INSERT INTO categories (CategoryId, CategoryName) VALUES(?, ?);";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setObject(1, category.getCategoryId());
+            preparedStatement.setObject(2, category.getCategoryName());
+            preparedStatement.executeUpdate();
+            System.out.println("Successfully inserted category " + category.getCategoryName());
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return category;
     }
 }

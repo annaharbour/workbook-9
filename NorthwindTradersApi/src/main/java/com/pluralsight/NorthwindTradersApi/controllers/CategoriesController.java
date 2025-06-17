@@ -3,10 +3,8 @@ package com.pluralsight.NorthwindTradersApi.controllers;
 import com.pluralsight.NorthwindTradersApi.dao.CategoryDao;
 import com.pluralsight.NorthwindTradersApi.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,4 +41,11 @@ public class CategoriesController {
     public Category getCategory(@PathVariable String name) {
         return dao.getCategory(name);
     }
+
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category createCategory(@RequestBody Category category) {
+        return dao.insert(category);
+    }
+
 }

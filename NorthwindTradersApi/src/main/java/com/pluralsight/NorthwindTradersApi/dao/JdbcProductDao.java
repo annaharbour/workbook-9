@@ -106,4 +106,9 @@ public class JdbcProductDao implements ProductDao {
         }
         return null;
     }
+
+    @Override
+    public void insert(Product product) {
+
+    }
 }
