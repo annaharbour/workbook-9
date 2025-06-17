@@ -2,6 +2,7 @@ package com.pluralsight.NorthwindTradersApi.dao;
 
 import com.pluralsight.NorthwindTradersApi.models.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ProductDao {
@@ -10,4 +11,5 @@ public interface ProductDao {
     List<Product> getByPrice(double price);
     List<Product> getByCategoryId(int categoryId);
     Product insert(Product product);
+    void update(int id, Product product);
 }

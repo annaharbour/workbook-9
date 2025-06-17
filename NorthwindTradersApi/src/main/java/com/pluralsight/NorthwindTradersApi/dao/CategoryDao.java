@@ -9,4 +9,6 @@ public interface CategoryDao {
     Category getCategory(int id);
     Category getCategory(String name);
     Category insert(Category category);
+
+    void update(int id, Category category);
 }

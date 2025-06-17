@@ -2,6 +2,7 @@ package com.pluralsight.NorthwindTradersApi.controllers;
 
 import com.pluralsight.NorthwindTradersApi.dao.CategoryDao;
 import com.pluralsight.NorthwindTradersApi.models.Category;
+import com.pluralsight.NorthwindTradersApi.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,12 @@ public class CategoriesController {
     @ResponseStatus(HttpStatus.CREATED)
     public Category createCategory(@RequestBody Category category) {
         return dao.insert(category);
+    }
+
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void updateCategory(@PathVariable int id, @RequestBody Category category) {
     }
 
 }

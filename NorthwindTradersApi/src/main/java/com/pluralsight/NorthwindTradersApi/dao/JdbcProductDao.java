@@ -109,18 +109,38 @@ public class JdbcProductDao implements ProductDao {
 
     @Override
     public Product insert(Product product) {
-        String sql = "INSERT INTO products (ProductId, ProductName, UnitPrice, CategoryId) VALUES(?, ?, ?, ?);";
+        String sql = "INSERT INTO products (ProductName, UnitPrice, CategoryId) VALUES(?, ?, ?);";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, product.getCategoryId());
-            preparedStatement.setString(2, product.getName());
-            preparedStatement.setBigDecimal(3, product.getPrice());
-            preparedStatement.setInt(4, product.getCategoryId());
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setBigDecimal(2, product.getPrice());
+            preparedStatement.setInt(3, product.getCategoryId());
             preparedStatement.executeUpdate();
             System.out.println("Successfully inserted product " + product.getName());
         } catch (SQLException e) {
             System.out.println(e);
         }
         return product;
+    }
+
+    @Override
+    public void update(int id, Product product) {
+
+        String sql = "UPDATE products SET ProductName = ?, UnitPrice = ?, CategoryId = ? WHERE ProductId = ?;";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setBigDecimal(2, product.getPrice());
+            preparedStatement.setInt(3, product.getCategoryId());
+            preparedStatement.setInt(4, product.getProductId());
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Successfully updated product: " + product.getProductId() + ". " + product.getName());
+            } else {
+                System.out.println("No product found with ID " + product.getProductId());
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 }
