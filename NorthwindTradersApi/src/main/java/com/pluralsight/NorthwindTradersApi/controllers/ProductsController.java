@@ -2,12 +2,11 @@ package com.pluralsight.NorthwindTradersApi.controllers;
 
 import com.pluralsight.NorthwindTradersApi.dao.CategoryDao;
 import com.pluralsight.NorthwindTradersApi.dao.ProductDao;
+import com.pluralsight.NorthwindTradersApi.models.Category;
 import com.pluralsight.NorthwindTradersApi.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -46,5 +45,12 @@ public class ProductsController {
     @GetMapping("/price/{price}")
     public List<Product> getProductById(@PathVariable double price) {
         return dao.getByPrice(price);
+    }
+
+
+    @PostMapping("/add")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Product createProduct(@RequestBody Product product) {
+        return dao.insert(product);
     }
 }

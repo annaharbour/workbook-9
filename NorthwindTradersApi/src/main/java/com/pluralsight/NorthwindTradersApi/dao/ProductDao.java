@@ -9,5 +9,5 @@ public interface ProductDao {
     Product getById(int id);
     List<Product> getByPrice(double price);
     List<Product> getByCategoryId(int categoryId);
-    void insert(Product product);
+    Product insert(Product product);
 }

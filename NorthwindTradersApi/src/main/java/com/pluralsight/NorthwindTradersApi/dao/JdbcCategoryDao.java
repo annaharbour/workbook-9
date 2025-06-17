@@ -79,8 +79,8 @@ public class JdbcCategoryDao implements CategoryDao {
         String sql = "INSERT INTO categories (CategoryId, CategoryName) VALUES(?, ?);";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setObject(1, category.getCategoryId());
-            preparedStatement.setObject(2, category.getCategoryName());
+            preparedStatement.setInt(1, category.getCategoryId());
+            preparedStatement.setString(2, category.getCategoryName());
             preparedStatement.executeUpdate();
             System.out.println("Successfully inserted category " + category.getCategoryName());
         } catch (SQLException e) {
